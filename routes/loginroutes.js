@@ -2,10 +2,7 @@ var jsonfile = require('jsonfile');
 var connection = require('.././connections/mysql_connection.js');
 
 exports.register = function(req,res){
-  // console.log("req",req.body);
   var today = new Date();
-  // bcrypt.hash(req.body.password, 5, function( err, bcryptedPassword) {
-   //save to db
    var users={
      "first_name":req.body.first_name,
      "last_name":req.body.last_name,
@@ -23,16 +20,12 @@ exports.register = function(req,res){
        "failed":"error ocurred"
      })
    }else{
-    //  console.log('The solution is: ', results);
      res.send({
        "code":200,
        "success":"user registered sucessfully"
          });
    }
    });
-  // });
-
-
 }
 
 exports.login = function(req,res){
@@ -48,7 +41,6 @@ exports.login = function(req,res){
       "failed":"error ocurred"
     })
   }else{
-    // console.log('The solution is: ', results[0].password,req.body.password,req.body.role);
     if(results.length >0){
       if(results[0].password == req.body.password){
         if(results[0].role == req.body.role){
@@ -70,7 +62,6 @@ exports.login = function(req,res){
             "success":"You have logged in from wrong user role"
           })
         }
-
       }
       else{
         res.send({
@@ -78,7 +69,6 @@ exports.login = function(req,res){
              "success":"Email and password does not match"
         })
       }
-
     }
     else{
       res.send({
@@ -86,8 +76,6 @@ exports.login = function(req,res){
         "success":"Email does not exits"
           });
     }
-
-
   }
   });
 }

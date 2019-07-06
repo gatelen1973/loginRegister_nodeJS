@@ -7,8 +7,6 @@ var jsonfile = require('jsonfile');
 var connection = require('.././connections/mysql_connection.js');
 exports.fileretrieve = function (req, res) {
   console.log("retrieve hit");
-  // async.waterfall([
-  //   function(callback){
   var filepath = './userdata/userid.json'
   jsonfile.readFile(filepath, function (err, obj) {
     if (err) {
@@ -19,9 +17,7 @@ exports.fileretrieve = function (req, res) {
     }
     else {
       var userid = obj.userid;
-      // console.log("user id in read file",userid);
-      var swiftcommand = 'swift -A http://127.0.0.1:12345/auth/v1.0 -U test:tester -K testing list ' + userid;
-      // console.log("command",swiftcommand);
+      var swiftcommand = 'swift -A http://127.0.0.1:12345/auth/v1.0 -U test:tester -K testing list ' + userid;     
       cmd.get(
         swiftcommand,
         function (data) {
@@ -32,8 +28,6 @@ exports.fileretrieve = function (req, res) {
               { name: filenames[i] }
             )
           }
-
-          // console.log('the responses is :',resfiles)
           res.send({
             "code": 200,
             "result": resfiles
@@ -41,27 +35,16 @@ exports.fileretrieve = function (req, res) {
         }
       );
     }
-
   });
-  //   }
-  //   ], function (err, result) {
-  //   // result now equals 'done'
-  //   // console.log("waterfall result",file.originalname);
-  // })
 }
-exports.fileprint = function (req, res) {
-  // console.log("req",req.files);
+exports.fileprint = function (req, res) {  
   var filesArray = req.files;
   var filepath = './userdata/userid.json'
   jsonfile.readFile(filepath, function (err, obj) {
     var userid = obj.userid;
     connection.query('SELECT * FROM collegeusers WHERE userid = ?', [userid], function (error, results, fields) {
             if (error) {
-              console.log("error ocurred", error);
-              // res.send({
-              //   "code":400,
-              //   "failed":"error ocurred"
-              // })
+              console.log("error ocurred", error);             
             } else {
               if (results.length > 0) {
                 let printCount = results[0].printCount + filesArray.length;
@@ -100,11 +83,7 @@ exports.fileprint = function (req, res) {
         var filepath = './userdata/userid.json'
         jsonfile.readFile(filepath, function (err, obj) {
           var userid = obj.userid;
-          
-
-          // console.log("user id in read file",userid);
           var swiftcommand = 'swift -A http://127.0.0.1:12345/auth/v1.0 -U test:tester -K testing upload --object-name ' + file.originalname + ' ' + userid + ' ' + '../filestobeprinted/' + file.originalname;
-          // console.log("command",swiftcommand);
           cmd.get(
             swiftcommand,
             function (data) {
@@ -116,16 +95,9 @@ exports.fileprint = function (req, res) {
 
       },
       function (arg2, callback) {
-        // console.log("callback recieved",arg2);
-        //run printing commands here
-        // cmd.get('lpr '+writePath + file.originalname,
-        //         function(data){
         callback(null, "done printing files");
-        //         })
       }
     ], function (err, result) {
-      // result now equals 'done'
-      // console.log("waterfall result",file.originalname);
       eachcallback();
     });
   }, function (err) {
@@ -141,5 +113,4 @@ exports.fileprint = function (req, res) {
       cmd.run('rm -rf ./fileprint/*');
     }
   });
-
 }
