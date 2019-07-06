@@ -31,4 +31,4 @@ router.post('/login',login.login);
 router.post('/fileprint',multerupload.any(),upload.fileprint);
 router.get('/fileretrieve',upload.fileretrieve);
 app.use('/api', router);
-app.listen(4000);
+app.listen(process.env.PORT || 5000);
