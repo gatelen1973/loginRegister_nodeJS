@@ -1,8 +1,8 @@
 var mysql = require('mysql');
 var db_config = {
-  host     : '107.180.48.116',
-  user     : 'gatelen1973',
-  password : 'Alye10oio',
+  host     : 'us-cdbr-iron-east-02.cleardb.net',
+  user     : 'b4712214937ad8',
+  password : 'ac8fd8ec',
   database : 'NodeJS_Services',
   insecureAuth: false,
   connectTimeout: 10000 //The milliseconds before a timeout occurs during
