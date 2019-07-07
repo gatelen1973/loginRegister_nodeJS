@@ -3,7 +3,7 @@ var db_config = {
   host     : 'us-cdbr-iron-east-02.cleardb.net',
   user     : 'b4712214937ad8',
   password : 'ac8fd8ec',
-  database : 'NodeJS_Services',
+  database : 'heroku_ff8fd21eee89e9d',
   insecureAuth: false,
   connectTimeout: 10000 //The milliseconds before a timeout occurs during
                          //the initial connection to the MySQL server.
