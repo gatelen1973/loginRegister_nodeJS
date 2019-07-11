@@ -41,9 +41,9 @@ exports.login = function(req,res){
       "failed":"error ocurred"
     })
   }else{
-    if(results.length >0){
-      if(results[0].password == req.body.password){
-        if(results[0].role == req.body.role){
+    if(results.length >0) {
+      if(results[0].password == req.body.password) {
+       // if(results[0].role == req.body.role){
           var file = './userdata/userid.json'
           var obj = {userid: req.body.userid}
           jsonfile.writeFile(file, obj, function (err) {
@@ -55,13 +55,13 @@ exports.login = function(req,res){
             "code":200,
             "success":"login sucessfull"
           })
-        }
+/*         }
         else{
           res.send({
             "code":204,
             "success":"You have logged in from wrong user role"
           })
-        }
+        } */
       }
       else{
         res.send({
