@@ -43,13 +43,13 @@ exports.login = function(req,res){
     if(results.length >0) {
       if(results[0].password == req.body.password) {
        // if(results[0].role == req.body.role){
-          var file = './userdata/userid.json'
+/*           var file = './userdata/userid.json'
           var obj = {userid: req.body.userid}
           jsonfile.writeFile(file, obj, function (err) {
             if(err){
               console.log("Error ocurred in writing json during login at login handler in login routes",err);
             }
-          })
+          }) */
           const payload = { user: results[0].user }
           const options = { expiresIn: '30d', issuer: 'NodeJS Authentication' }
           const secret = req.body.password;
