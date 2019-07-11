@@ -50,7 +50,7 @@ exports.login = function(req,res){
             }
           })
           const payload = { user: results[0].user }
-          const options = { expiresIn: '30d', issuer: 'NodeJS Login/Register Service' }
+          const options = { expiresIn: '30d', issuer: 'http://www.somewebsite.com' }
           const secret = results[0].user;
           const token = jwt.sign(payload, secret, options);
           res.send({
