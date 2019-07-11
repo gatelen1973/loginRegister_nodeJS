@@ -1,5 +1,7 @@
 var jsonfile = require('jsonfile');
 var connection = require('.././connections/mysql_connection.js');
+const jwt = require('jsonwebtoken');
+
 
 exports.register = function(req,res){
   var today = new Date();
@@ -51,7 +53,17 @@ exports.login = function(req,res){
               console.log("Error ocurred in writing json during login at login handler in login routes",err);
             }
           })
+
+          const payload = { user: results[0].user }
+          const options = { expiresIn: '2d', issuer: 'https://google.com' }
+          const secret = process.env.JWT_SECRET;
+          const token = jwt.sign(payload,secret, options);
+
+
+
+
           res.send({
+            "token": token,
             "code":200,
             "success":"login sucessfull"
           })
