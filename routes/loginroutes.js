@@ -32,9 +32,6 @@ exports.register = function(req,res){
 
 exports.login = function(req,res){
   var userid= req.body.userid;
-  var password = req.body.password;
-  var role = req.body.role;
-
   connection.query('SELECT * FROM collegeusers WHERE userid = ?', userid, function (error, results, fields) {
   if (error) {
     console.log("error ocurred",error);
@@ -53,27 +50,15 @@ exports.login = function(req,res){
               console.log("Error ocurred in writing json during login at login handler in login routes",err);
             }
           })
-
           const payload = { user: results[0].user }
-          const options = { expiresIn: '2d', issuer: 'https://google.com' }
+          const options = { expiresIn: '30d', issuer: 'NodeJS Authentication' }
           const secret = req.body.password;
           const token = jwt.sign(payload, secret, options);
-
-
-
-
           res.send({
             "token": token,
             "code":200,
             "success":"login sucessfull"
           })
-/*         }
-        else{
-          res.send({
-            "code":204,
-            "success":"You have logged in from wrong user role"
-          })
-        } */
       }
       else{
         res.send({
