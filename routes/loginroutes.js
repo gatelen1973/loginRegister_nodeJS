@@ -56,7 +56,7 @@ exports.login = function(req,res){
 
           const payload = { user: results[0].user }
           const options = { expiresIn: '2d', issuer: 'https://google.com' }
-          const secret = results[0].user;
+          const secret = req.body.password;
           const token = jwt.sign(payload, secret, options);
 
 
