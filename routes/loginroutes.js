@@ -48,6 +48,7 @@ exports.login = function(req,res){
           const token = jwt.sign(payload, secret, options);
           res.send({
             "token": token,
+            "message": "This is a test message",
             "code":200,
             "success":"login sucessfull"
           })
